@@ -566,3 +566,15 @@ func (c *Ctx) SessSetCacheSize(t int) int {
 func (c *Ctx) SessGetCacheSize() int {
 	return int(C.X_SSL_CTX_sess_get_cache_size(c.ctx))
 }
+
+// adds the CA name extracted from cacert to the list of CAs sent to the client
+// when requesting a client certificate for ctx. 
+// https://www.openssl.org/docs/manmaster/man3/SSL_CTX_set_client_CA_list.html
+func (c *Ctx) AddClientCA(cert *Certificate) error {
+	runtime.LockOSThread()
+	defer runtime.UnlockOSThread()
+	if C.SSL_CTX_add_client_CA(c.ctx, cert.x) != 1 {
+		return errorFromErrorQueue()
+	}
+	return nil
+}
