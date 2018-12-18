@@ -18,6 +18,7 @@ package openssl
 import "C"
 
 import (
+	"log"
 	"errors"
 	"fmt"
 	"io/ioutil"
@@ -26,14 +27,12 @@ import (
 	"sync"
 	"time"
 	"unsafe"
-
-	"github.com/spacemonkeygo/spacelog"
 )
 
 var (
 	ssl_ctx_idx = C.X_SSL_CTX_new_index()
 
-	logger = spacelog.GetLogger()
+	logger = log.Logger
 )
 
 type Ctx struct {
