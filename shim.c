@@ -562,6 +562,10 @@ int X_SSL_CTX_ticket_key_cb(SSL *s, unsigned char key_name[16],
 	return go_ticket_key_cb_thunk(p, s, key_name, iv, cctx, hctx, enc);
 }
 
+int X_SSL_CTX_set_groups_list(SSL_CTX *ctx, const char *list) {
+	return SSL_CTX_set1_groups_list(ctx, list);
+}
+
 int X_BIO_get_flags(BIO *b) {
 	return BIO_get_flags(b);
 }
