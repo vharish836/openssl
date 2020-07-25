@@ -26,6 +26,7 @@ import (
 	"sync"
 	"time"
 	"unsafe"
+
 	"github.com/spacemonkeygo/spacelog"
 )
 
@@ -521,6 +522,19 @@ func (c *Ctx) SetCipherList(list string) error {
 	return nil
 }
 
+// SetGroupsList sets the list of set of supported groups. The format of the list is
+// described at https://www.openssl.org/docs/man1.1.1/man3/SSL_CTX_set1_groups_list.html
+func (c *Ctx) SetGroupsList(list string) error {
+	runtime.LockOSThread()
+	defer runtime.UnlockOSThread()
+	clist := C.CString(list)
+	defer C.free(unsafe.Pointer(clist))
+	if int(C.SSL_CTX_set1_groups_list(c.ctx, clist)) == 0 {
+		return errorFromErrorQueue()
+	}
+	return nil
+}
+
 type SessionCacheModes int
 
 const (
@@ -567,7 +581,7 @@ func (c *Ctx) SessGetCacheSize() int {
 }
 
 // adds the CA name extracted from cacert to the list of CAs sent to the client
-// when requesting a client certificate for ctx. 
+// when requesting a client certificate for ctx.
 // https://www.openssl.org/docs/manmaster/man3/SSL_CTX_set_client_CA_list.html
 func (c *Ctx) AddClientCA(cert *Certificate) error {
 	runtime.LockOSThread()
