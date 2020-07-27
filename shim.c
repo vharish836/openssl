@@ -428,6 +428,9 @@ const char * X_SSL_get_cipher_name(const SSL *ssl) {
 int X_SSL_session_reused(SSL *ssl) {
     return SSL_session_reused(ssl);
 }
+int X_SSL_get_oqs_kem_curve_id(SSL *ssl) {
+	return SSL_get_oqs_kem_curve_id(ssl);
+}
 
 int X_SSL_new_index() {
 	return SSL_get_ex_new_index(0, NULL, NULL, NULL, NULL);

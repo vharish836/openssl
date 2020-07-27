@@ -618,3 +618,175 @@ func (c *Conn) setSession(session []byte) error {
 	}
 	return nil
 }
+
+func (c *Conn) GetTempKey() string {
+	id := C.X_SSL_get_oqs_kem_curve_id(c.ssl)
+	switch id {
+	case 0x01FF:
+		return "oqs_kem_default"
+	///// OQS_TEMPLATE_FRAGMENT_OQS_CURVE_ID_NAME_STR_START
+	case 0x0200:
+		return "frodo640aes"
+	case 0x0201:
+		return "frodo640shake"
+	case 0x0202:
+		return "frodo976aes"
+	case 0x0203:
+		return "frodo976shake"
+	case 0x0204:
+		return "frodo1344aes"
+	case 0x0205:
+		return "frodo1344shake"
+	case 0x0206:
+		return "bike1l1cpa"
+	case 0x0207:
+		return "bike1l3cpa"
+	case 0x0223:
+		return "bike1l1fo"
+	case 0x0224:
+		return "bike1l3fo"
+	case 0x020F:
+		return "kyber512"
+	case 0x0210:
+		return "kyber768"
+	case 0x0211:
+		return "kyber1024"
+	case 0x0212:
+		return "newhope512cca"
+	case 0x0213:
+		return "newhope1024cca"
+	case 0x0214:
+		return "ntru_hps2048509"
+	case 0x0215:
+		return "ntru_hps2048677"
+	case 0x0216:
+		return "ntru_hps4096821"
+	case 0x0217:
+		return "ntru_hrss701"
+	case 0x0218:
+		return "lightsaber"
+	case 0x0219:
+		return "saber"
+	case 0x021A:
+		return "firesaber"
+	case 0x021B:
+		return "sidhp434"
+	case 0x021C:
+		return "sidhp503"
+	case 0x021D:
+		return "sidhp610"
+	case 0x021E:
+		return "sidhp751"
+	case 0x021F:
+		return "sikep434"
+	case 0x0220:
+		return "sikep503"
+	case 0x0221:
+		return "sikep610"
+	case 0x0222:
+		return "sikep751"
+	case 0x0229:
+		return "kyber90s512"
+	case 0x022A:
+		return "kyber90s768"
+	case 0x022B:
+		return "kyber90s1024"
+	case 0x022C:
+		return "babybear"
+	case 0x022D:
+		return "mamabear"
+	case 0x022E:
+		return "papabear"
+	case 0x022F:
+		return "babybearephem"
+	case 0x0230:
+		return "mamabearephem"
+	case 0x0231:
+		return "papabearephem"
+	///// OQS_TEMPLATE_FRAGMENT_OQS_CURVE_ID_NAME_STR_END
+	case 0x2FFF:
+		return "p256_oqs_kem_default hybrid"
+		///// OQS_TEMPLATE_FRAGMENT_OQS_CURVE_ID_NAME_STR_HYBRID_START
+	case 0x2F00:
+		return "p256_frodo640aes hybrid"
+	case 0x2F01:
+		return "p256_frodo640shake hybrid"
+	case 0x2F02:
+		return "p384_frodo976aes hybrid"
+	case 0x2F03:
+		return "p384_frodo976shake hybrid"
+	case 0x2F04:
+		return "p521_frodo1344aes hybrid"
+	case 0x2F05:
+		return "p521_frodo1344shake hybrid"
+	case 0x2F06:
+		return "p256_bike1l1cpa hybrid"
+	case 0x2F07:
+		return "p384_bike1l3cpa hybrid"
+	case 0x2F23:
+		return "p256_bike1l1fo hybrid"
+	case 0x2F24:
+		return "p384_bike1l3fo hybrid"
+	case 0x2F0F:
+		return "p256_kyber512 hybrid"
+	case 0x2F10:
+		return "p384_kyber768 hybrid"
+	case 0x2F11:
+		return "p521_kyber1024 hybrid"
+	case 0x2F12:
+		return "p256_newhope512cca hybrid"
+	case 0x2F13:
+		return "p521_newhope1024cca hybrid"
+	case 0x2F14:
+		return "p256_ntru_hps2048509 hybrid"
+	case 0x2F15:
+		return "p384_ntru_hps2048677 hybrid"
+	case 0x2F16:
+		return "p521_ntru_hps4096821 hybrid"
+	case 0x2F17:
+		return "p384_ntru_hrss701 hybrid"
+	case 0x2F18:
+		return "p256_lightsaber hybrid"
+	case 0x2F19:
+		return "p384_saber hybrid"
+	case 0x2F1A:
+		return "p521_firesaber hybrid"
+	case 0x2F1B:
+		return "p256_sidhp434 hybrid"
+	case 0x2F1C:
+		return "p256_sidhp503 hybrid"
+	case 0x2F1D:
+		return "p384_sidhp610 hybrid"
+	case 0x2F1E:
+		return "p521_sidhp751 hybrid"
+	case 0x2F1F:
+		return "p256_sikep434 hybrid"
+	case 0x2F20:
+		return "p256_sikep503 hybrid"
+	case 0x2F21:
+		return "p384_sikep610 hybrid"
+	case 0x2F22:
+		return "p521_sikep751 hybrid"
+	case 0x2F29:
+		return "p256_kyber90s512 hybrid"
+	case 0x2F2A:
+		return "p384_kyber90s768 hybrid"
+	case 0x2F2B:
+		return "p521_kyber90s1024 hybrid"
+	case 0x2F2C:
+		return "p256_babybear hybrid"
+	case 0x2F2D:
+		return "p384_mamabear hybrid"
+	case 0x2F2E:
+		return "p521_papabear hybrid"
+	case 0x2F2F:
+		return "p256_babybearephem hybrid"
+	case 0x2F30:
+		return "p384_mamabearephem hybrid"
+	case 0x2F31:
+		return "p521_papabearephem hybrid"
+	///// OQS_TEMPLATE_FRAGMENT_OQS_CURVE_ID_NAME_STR_HYBRID_END
+	default:
+		return ""
+	}
+}
