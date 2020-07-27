@@ -376,7 +376,9 @@ int X_shim_init() {
 	int rc = 0;
 
 	OPENSSL_config(NULL);
+#ifndef OPENSSL_NO_ENGINE
 	ENGINE_load_builtin_engines();
+#endif
 	SSL_load_error_strings();
 	SSL_library_init();
 	OpenSSL_add_all_algorithms();
