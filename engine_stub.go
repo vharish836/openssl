@@ -23,12 +23,10 @@ import "C"
 
 import (
 	"fmt"
-	"runtime"
-	"unsafe"
 )
 
 type Engine struct {
-	e *C.ENGINE
+	e *C.struct_engine_st
 }
 
 func EngineById(name string) (*Engine, error) {
