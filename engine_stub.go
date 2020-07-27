@@ -16,18 +16,11 @@
 
 package openssl
 
-/*
-#include "openssl/engine.h"
-*/
-import "C"
-
 import (
-	"fmt"
-	"runtime"
 	"unsafe"
 )
 
 type Engine struct {
-	e *C.ENGINE
+	e unsafe.Pointer
 }
 
