@@ -16,11 +16,21 @@
 
 package openssl
 
+/*
+#include "openssl/engine.h"
+*/
+import "C"
+
 import (
+	"fmt"
+	"runtime"
 	"unsafe"
 )
 
 type Engine struct {
-	e unsafe.Pointer
+	e *C.ENGINE
 }
 
+func EngineById(name string) (*Engine, error) {
+	return nil, fmt.Errorf("engine %s missing", name)
+}
